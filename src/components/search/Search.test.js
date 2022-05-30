@@ -96,7 +96,7 @@ describe("Search component", () => {
       error: "",
     }));
     customRender(<Search />);
-    await userEvent.type(screen.getByRole("textbox"), "");
+    await userEvent.type(screen.getByRole("textbox"), " ");
     await userEvent.click(screen.getByText("Search"));
     expect(navigate).not.toHaveBeenCalled();
     const alert = await screen.findByText(warningMessage);

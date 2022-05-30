@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { transitions, positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import App from "./components/App";
