@@ -1,7 +1,8 @@
 import React from "react";
-import { customRender } from "../../utils/test";
-import { screen } from "@testing-library/react";
+import { customRender, screen } from "../../utils/test";
 import * as Router from "react-router";
+import userEvent from "@testing-library/user-event";
+import { createMemoryHistory } from "history";
 
 import User from "./User";
 import useRequest from "../../hooks/useRequest";
@@ -22,11 +23,10 @@ describe("User component", () => {
       alt: "Avatar of user coco",
     },
   };
-  const navigate = jest.fn();
+
   beforeEach(() => {
     jest.clearAllMocks();
     jest.spyOn(Router, "useLocation").mockImplementation(() => userData);
-    jest.spyOn(Router, "useNavigate").mockImplementation(() => navigate);
   });
 
   it("shows a user without repos", async () => {
@@ -55,8 +55,24 @@ describe("User component", () => {
       data: reposMock,
       error: "",
     });
-    customRender(<User />);
+    customRender(<User {...userData.state} />);
     expect(screen.getByTestId("repos-amount")).toHaveTextContent(2);
     expect(screen.getAllByRole("listitem").length).toBe(3);
+  });
+
+  it("returns to search user page if the user click on the button on the top left corner", async () => {
+    useRequest.mockReturnValue({
+      isLoading: false,
+      data: reposMock,
+      error: "",
+    });
+    const history = createMemoryHistory();
+
+    customRender(<User {...userData.state} />, {
+      initialRoutes: ["/user"],
+    });
+
+    await userEvent.click(screen.getByLabelText("Search a new user"));
+    expect(history.location.pathname).toBe("/");
   });
 });

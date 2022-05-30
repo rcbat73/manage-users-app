@@ -6,6 +6,5 @@ export const dataMapper = (data) => {
         name: data.name,
         picture: data.avatar_url,
         alt: `Avatar of user ${data.login}`,
-        repoUrl: data.repos_url,
       };
 };

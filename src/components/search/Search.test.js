@@ -12,7 +12,6 @@ const userMock = {
   name: "coco",
   picture: "https://avatars.githubusercontent.com/u/8480969?v=4",
   alt: "Avatar of user coco",
-  repoUrl: "https://api.github.com/users/coco/repos",
 };
 
 describe("Search component", () => {
